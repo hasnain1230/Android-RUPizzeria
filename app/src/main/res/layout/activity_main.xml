@@ -6,13 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="160dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/nydefault"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="180dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="160dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/chicagodefault"
+        tools:layout_editor_absoluteX="217dp"
+        tools:layout_editor_absoluteY="180dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="160dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/pizzastore"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="370dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="160dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/cart"
+        tools:layout_editor_absoluteX="217dp"
+        tools:layout_editor_absoluteY="370dp" />
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="NY Pizza"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="332dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chicago Pizza"
+        tools:layout_editor_absoluteX="264dp"
+        tools:layout_editor_absoluteY="332dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Store Orders"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="520dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Order"
+        tools:layout_editor_absoluteX="264dp"
+        tools:layout_editor_absoluteY="520dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
