@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Android-RUPizzeria</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="numbers"> //TODO: get rid of when we make spinner get values from store orders backend
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>

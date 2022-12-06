@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Order Pizza"
+        android:icon="@drawable/ic_baseline_local_pizza_24"
+        android:id="@+id/orderPizza"/>
+    <item
+        android:title="Store Orders"
+        android:icon="@drawable/ic_baseline_store_24"
+        android:id="@+id/storeOrders"/>
+    <item
+        android:title="Cart"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:id="@+id/cart"/>
+</menu>
