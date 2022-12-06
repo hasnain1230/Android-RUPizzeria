@@ -11,16 +11,16 @@ import rutgers.rupizzeria.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        this.binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(this.binding.getRoot());
         replaceFragment(new OrderPizzaFragment());
 
-        binding.bottomNavigationView.setOnItemSelectedListener( item -> {
+        this.binding.bottomNavigationView.setOnItemSelectedListener( item -> {
             switch (item.getItemId()) {
                 case R.id.orderPizza:
                     replaceFragment(new OrderPizzaFragment());
