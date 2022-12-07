@@ -66,8 +66,10 @@ public class PizzaRecyclerViewAdapter extends RecyclerView.Adapter<PizzaRecycler
                 public void onClick(View view) {
                     if (recyclerViewInterface != null) {
                         int pos = getAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION) {
-                            recyclerViewInterface.onItemClick(pos, itemView);
+                        if(pos == 0 || pos == 4) {
+                            recyclerViewInterface.onItemClick1(pos, itemView);
+                        } else if (pos != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onItemClick2(pos, itemView);
                         }
                     }
                 }

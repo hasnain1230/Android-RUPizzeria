@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Order Pizza"
+        android:title="@string/order_pizza_nav"
         android:icon="@drawable/ic_baseline_local_pizza_24"
         android:id="@+id/orderPizza"/>
     <item
-        android:title="Store Orders"
+        android:title="@string/store_orders_nav"
         android:icon="@drawable/ic_baseline_store_24"
         android:id="@+id/storeOrders"/>
     <item
-        android:title="Cart"
+        android:title="@string/cart_nav"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:id="@+id/cart"/>
 </menu>

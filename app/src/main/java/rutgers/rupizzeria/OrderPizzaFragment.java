@@ -8,12 +8,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.SyncStateContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import constants.Constants;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,74 +94,75 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
     }
 
     @Override
-    public void onItemClick(int position, View view) {
-        showAlertDialog(view);
+    public void onItemClick1(int position, View view) {
+        showAlertDialogToppings(view);
     }
 
-    private void showAlertDialog(View view) {
+    public void onItemClick2(int position, View view) {
+        showAlertDialogPrice(view);
+    }
+
+    private void showAlertDialogToppings(View view) {
+        ArrayList<String> selectedToppings = new ArrayList<>();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
-        alertDialog.setTitle("Select Toppings");
-        String[] toppings = {"Sausage", "Pepperoni", "BBQ Chicken", "Beef", "Ham", "Provolone", "Bacon", "Green Pepper", "Onion", "Mushroom", "Cheddar", "Olives", "Pineapple"};
-        boolean[] checkedItems = {false, false, false, false, false,false, false, false, false, false, false, false, false};
+        alertDialog.setTitle(R.string.select_topping_title);
+        String[] toppings = getActivity().getResources().getStringArray(R.array.toppings);
+        boolean[] checkedItems = new boolean[13];
         alertDialog.setMultiChoiceItems(toppings, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                switch (which) {
-                    case 0:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Sausage", Toast.LENGTH_LONG).show();
-                        break;
-                    case 1:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Pepperoni", Toast.LENGTH_LONG).show();
-                        break;
-                    case 2:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on BBQ Chicken", Toast.LENGTH_LONG).show();
-                        break;
-                    case 3:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Beef", Toast.LENGTH_LONG).show();
-                        break;
-                    case 4:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Ham", Toast.LENGTH_LONG).show();
-                        break;
-                    case 5:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Provolone", Toast.LENGTH_LONG).show();
-                        break;
-                    case 6:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Bacon", Toast.LENGTH_LONG).show();
-                        break;
-                    case 7:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Green Pepper", Toast.LENGTH_LONG).show();
-                        break;
-                    case 8:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Onion", Toast.LENGTH_LONG).show();
-                        break;
-                    case 9:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Mushroom", Toast.LENGTH_LONG).show();
-                        break;
-                    case 10:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Cheddar", Toast.LENGTH_LONG).show();
-                        break;
-                    case 11:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Olives", Toast.LENGTH_LONG).show();
-                        break;
-                    case 12:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Pineapple", Toast.LENGTH_LONG).show();
-                        break;
+            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                if (b) {
+                    if (selectedToppings.size() == Constants.MAXIMUM_TOPPINGS) { //tried this with the R.integer.max_toppings and it didn't work but it works with this
+                        Toast.makeText(view.getContext(), R.string.max_topping_warning, (Toast.LENGTH_SHORT)).show();
+                        checkedItems[i] = false;
+                        ((AlertDialog) dialogInterface).getListView().setItemChecked(i, false);
+                    } else {
+                        selectedToppings.add(toppings[i]);
+                        //TODO: possibly make toast updating price but it was lowkey annoying me so decide if you want to
+                    }
+                } else {
+                    selectedToppings.remove(toppings[i]);
                 }
             }
         });
+
+        alertDialog.setPositiveButton(R.string.continue_option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                showAlertDialogPrice(view);
+            }
+        });
+
+        alertDialog.setNegativeButton(R.string.cancel_option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(view.getContext(), R.string.order_cancelled_notif, (Toast.LENGTH_SHORT)).show();
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+
+    private void showAlertDialogPrice(View view) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
+        alertDialog.setTitle(R.string.confirm_order_title);
+        alertDialog.setMessage(R.string.price_label);
+
+        alertDialog.setPositiveButton(R.string.place_order_option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(view.getContext(), R.string.order_placed_notif, (Toast.LENGTH_SHORT)).show();
+            }
+        });
+
+        alertDialog.setNegativeButton(R.string.cancel_option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(view.getContext(), R.string.order_cancelled_notif, (Toast.LENGTH_SHORT)).show();
+            }
+        });
+
         AlertDialog alert = alertDialog.create();
         alert.setCanceledOnTouchOutside(false);
         alert.show();
