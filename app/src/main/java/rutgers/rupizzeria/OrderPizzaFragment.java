@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,67 +101,18 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
         alertDialog.setTitle("Select Toppings");
         String[] toppings = {"Sausage", "Pepperoni", "BBQ Chicken", "Beef", "Ham", "Provolone", "Bacon", "Green Pepper", "Onion", "Mushroom", "Cheddar", "Olives", "Pineapple"};
         boolean[] checkedItems = {false, false, false, false, false,false, false, false, false, false, false, false, false};
-        alertDialog.setMultiChoiceItems(toppings, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+        alertDialog.setMultiChoiceItems(toppings, checkedItems, null);
+
+        alertDialog.setPositiveButton("Place Order", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                switch (which) {
-                    case 0:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Sausage", Toast.LENGTH_LONG).show();
-                        break;
-                    case 1:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Pepperoni", Toast.LENGTH_LONG).show();
-                        break;
-                    case 2:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on BBQ Chicken", Toast.LENGTH_LONG).show();
-                        break;
-                    case 3:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Beef", Toast.LENGTH_LONG).show();
-                        break;
-                    case 4:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Ham", Toast.LENGTH_LONG).show();
-                        break;
-                    case 5:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Provolone", Toast.LENGTH_LONG).show();
-                        break;
-                    case 6:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Bacon", Toast.LENGTH_LONG).show();
-                        break;
-                    case 7:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Green Pepper", Toast.LENGTH_LONG).show();
-                        break;
-                    case 8:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Onion", Toast.LENGTH_LONG).show();
-                        break;
-                    case 9:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Mushroom", Toast.LENGTH_LONG).show();
-                        break;
-                    case 10:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Cheddar", Toast.LENGTH_LONG).show();
-                        break;
-                    case 11:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Olives", Toast.LENGTH_LONG).show();
-                        break;
-                    case 12:
-                        if(isChecked)
-                            Toast.makeText(view.getContext(), "Clicked on Pineapple", Toast.LENGTH_LONG).show();
-                        break;
-                }
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(view.getContext(), "Order Placed", Toast.LENGTH_SHORT).show();
             }
         });
+
         AlertDialog alert = alertDialog.create();
-        alert.setCanceledOnTouchOutside(false);
+
+        alert.setCanceledOnTouchOutside(true);
         alert.show();
     }
 }
