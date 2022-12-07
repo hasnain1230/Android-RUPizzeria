@@ -1,5 +1,7 @@
 package rutgers.rupizzeria;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,15 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link OrderPizzaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderPizzaFragment extends Fragment {
+public class OrderPizzaFragment extends Fragment implements RecyclerViewInterface {
 
     ArrayList<PizzaModel> pizzaModels = new ArrayList<>();
     int[] pizzaImages = {R.drawable.chicagodefault, R.drawable.chicagodeluxe, R.drawable.chicagobbq, R.drawable.chicagomeat,
@@ -70,7 +74,7 @@ public class OrderPizzaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_order_pizza, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.pizzaRecyclerView);
         setUpPizzaModels();
-        PizzaRecyclerViewAdapter adapter = new PizzaRecyclerViewAdapter(view.getContext(), pizzaModels);
+        PizzaRecyclerViewAdapter adapter = new PizzaRecyclerViewAdapter(view.getContext(), pizzaModels, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -85,5 +89,30 @@ public class OrderPizzaFragment extends Fragment {
         for (int i = 0; i < pizzaTypes.length; i++) {
             pizzaModels.add(new PizzaModel(pizzaTypes[i], pizzaCrusts[i], pizzaToppings[i], pizzaImages[i]));
         }
+    }
+
+    @Override
+    public void onItemClick(int position, View view) {
+        showAlertDialog(view);
+    }
+
+    private void showAlertDialog(View view) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
+        alertDialog.setTitle("Select Toppings");
+        String[] toppings = {"Sausage", "Pepperoni", "BBQ Chicken", "Beef", "Ham", "Provolone", "Bacon", "Green Pepper", "Onion", "Mushroom", "Cheddar", "Olives", "Pineapple"};
+        boolean[] checkedItems = {false, false, false, false, false,false, false, false, false, false, false, false, false};
+        alertDialog.setMultiChoiceItems(toppings, checkedItems, null);
+
+        alertDialog.setPositiveButton("Place Order", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(view.getContext(), "Order Placed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog alert = alertDialog.create();
+
+        alert.setCanceledOnTouchOutside(true);
+        alert.show();
     }
 }
