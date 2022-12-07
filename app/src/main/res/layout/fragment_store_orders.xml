@@ -13,9 +13,8 @@
         android:id="@+id/spinner1"
         android:layout_width="164dp"
         android:layout_height="23dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="23dp"
         app:layout_constraintBottom_toTopOf="@+id/_dynamic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,23 +22,21 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="543dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginTop="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="164dp"
         android:layout_height="17dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginTop="15dp"
         android:text="Order Number"
         app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        app:layout_constraintEnd_toStartOf="@+id/spinner1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,29 +44,36 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="101dp"
-        android:layout_marginEnd="121dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="61dp"
         android:text="Order total (w/ tax) $"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="101dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="61dp"
         android:text="0.00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="95dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="34dp"
+        android:text="CANCEL ORDER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
