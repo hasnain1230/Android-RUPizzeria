@@ -75,7 +75,6 @@ public class OrderPizzaFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         return view;
-
     }
 
     private void setUpPizzaModels() {
