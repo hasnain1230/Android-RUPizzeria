@@ -3,10 +3,14 @@ package rutgers.rupizzeria;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +18,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class OrderPizzaFragment extends Fragment {
+
+    ArrayList<PizzaModel> pizzaModels = new ArrayList<>();
+    int[] pizzaImages = {R.drawable.chicagodefault, R.drawable.chicagodeluxe, R.drawable.chicagobbq, R.drawable.chicagomeat,
+            R.drawable.nydefault, R.drawable.nydeluxe, R.drawable.nybbq, R.drawable.nymeatzza};
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +67,24 @@ public class OrderPizzaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_pizza, container, false);
+        View view = inflater.inflate(R.layout.fragment_order_pizza, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.pizzaRecyclerView);
+        setUpPizzaModels();
+        PizzaRecyclerViewAdapter adapter = new PizzaRecyclerViewAdapter(view.getContext(), pizzaModels);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        return view;
+
+    }
+
+    private void setUpPizzaModels() {
+        String[] pizzaTypes = getResources().getStringArray(R.array.pizza_types);
+        String[] pizzaCrusts = getResources().getStringArray(R.array.pizza_crust);
+        String[] pizzaToppings = getResources().getStringArray(R.array.pizza_toppings);
+
+        for (int i = 0; i < pizzaTypes.length; i++) {
+            pizzaModels.add(new PizzaModel(pizzaTypes[i], pizzaCrusts[i], pizzaToppings[i], pizzaImages[i]));
+        }
     }
 }
