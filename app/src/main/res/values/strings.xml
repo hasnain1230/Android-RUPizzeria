@@ -1,11 +1,67 @@
 <resources>
     <string name="app_name">Android-RUPizzeria</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="select_topping_title">Select Toppings</string>
+
+    <string name="confirm_order_title">Confirm Order</string>
+
+    <string name="max_topping_warning">Can\'t add more than 7 toppings</string>
+
+    <string name="continue_option">Continue</string>
+
+    <string name="cancel_option">Cancel</string>
+
+    <string name="place_order_option">Place Order</string>
+
+    <string name="order_placed_notif">Order Placed</string>
+
+    <string name="order_cancelled_notif">Order Cancelled</string>
+
+    <string name="price_label">Price:$</string>
+
+    <integer name="max_toppings">7</integer>
+
+    <string name="order_pizza_nav">Order Pizza</string>
+
+    <string name="store_orders_nav">Store Orders</string>
+
+    <string name="cart_nav">Cart</string>
+
+    <string name="type">Type</string>
+
+    <string name="crust">Crust</string>
+
+    <string name="toppings">Toppings</string>
+
+    <string name="order_number">Order Number</string>
+
+    <string name="order_total_wtax">Order total (w/ tax) $</string>
+
+    <string name="cancel_order_button">CANCEL ORDER</string>
+
+    <string name="place_order_button">PLACE ORDER</string>
+
+    <string name="remove_order_button">REMOVE ORDER</string>
+
+    <string name="clear_order_button">CLEAR ORDER</string>
+
+    <string name="default_price">0.00</string>
+
     <string name="small">small</string>
+
     <string name="medium">medium</string>
+
     <string name="large">large</string>
-    <string name="add_order">ADD ORDER</string>
+
+    <string name="default_order_number">0</string>
+
+    <string name="order_total">Order Total: $</string>
+
+    <string name="subtotal">Subtotal: $</string>
+
+    <string name="sales_tax">Sales Tax: $</string>
+
     <string-array name="pizza_types">
         <item>Chicago Build Your Own</item>
         <item>Chicago Deluxe</item>
@@ -37,5 +93,21 @@
         <item>Toppings: Sausage, Pepperoni, Green Pepper, Onion, Mushroom</item>
         <item>Toppings: BBQ Chicken, Green Pepper, Provolone, Cheddar</item>
         <item>Toppings: Sausage, Pepperoni, Beef, Ham</item>
+    </string-array>
+
+    <string-array name="toppings">
+        <item>Sausage</item>
+        <item>Pepperoni</item>
+        <item>Green Pepper</item>
+        <item>Onion</item>
+        <item>Mushroom</item>
+        <item>BBQ Chicken</item>
+        <item>Green Pepper</item>
+        <item>Provolone</item>
+        <item>Cheddar</item>
+        <item>Beef</item>
+        <item>Ham</item>
+        <item>Bacon</item>
+        <item>Pineapple</item>
     </string-array>
 </resources>
