@@ -13,23 +13,25 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import orders.Order;
+import orders.StoreOrders;
 import rutgers.rupizzeria.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
-    private Order currentOrder;
+    private static Order currentOrder;
+    private static StoreOrders storeOrders;
 
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(this.binding.getRoot());
+        rutgers.rupizzeria.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         replaceFragment(new OrderPizzaFragment());
-        this.currentOrder = new Order();
+        currentOrder = new Order();
+        storeOrders = new StoreOrders();
 
-        this.binding.bottomNavigationView.setOnItemSelectedListener( item -> {
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.orderPizza:
                     replaceFragment(new OrderPizzaFragment());
@@ -46,7 +48,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Order getCurrentOrder() {
-        return this.currentOrder;
+        return currentOrder;
+    }
+    public StoreOrders getStoreOrders() {
+        return storeOrders;
+    }
+    public void setNewOrder() {
+        currentOrder = new Order();
     }
 
     private void replaceFragment(Fragment fragment) {

@@ -18,11 +18,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import orders.Order;
+import orders.StoreOrders;
 import pizza.properties.Pizza;
 
 /**
@@ -31,6 +33,7 @@ import pizza.properties.Pizza;
  * create an instance of this fragment.
  */
 public class CartFragment extends Fragment implements View.OnClickListener {
+    private StoreOrders storeOrders;
     private Order currentOrder;
     private TextView orderNumber;
     private TextView subtotalTextView;
@@ -45,7 +48,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.currentOrder = ((MainActivity) getActivity()).getCurrentOrder();
+        this.currentOrder = ((MainActivity) requireActivity()).getCurrentOrder();
+        this.storeOrders = ((MainActivity) requireActivity()).getStoreOrders();
 
         if (this.currentOrder == null) {
             return;
@@ -59,6 +63,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         this.orderNumber = view.findViewById(R.id.cart_order_number);
+        this.orderNumber.setText(String.valueOf(this.currentOrder.getOrderID()));
         this.subtotalTextView = view.findViewById(R.id.subtotal_text_view);
         this.taxTextView = view.findViewById(R.id.sales_tax_text_view);
         this.totalTextView = view.findViewById(R.id.order_total_text_view);
@@ -71,6 +76,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         this.removeOrderButton.setOnClickListener(this);
         this.clearOrderButton = view.findViewById(R.id.clear_order_button);
         this.clearOrderButton.setOnClickListener(this);
+
         return view;
     }
 
@@ -78,15 +84,23 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.place_order_button:
-                System.out.println("Order Placed");
+                if (this.currentOrder.getPizzasInOrder().isEmpty()) {
+                    Toast.makeText(requireActivity(), "Empty Order!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Order placedOrder = new Order(this.currentOrder);
+                this.storeOrders.add(placedOrder);
+                ((MainActivity) requireActivity()).setNewOrder();
+                this.adapter.clear();
+                this.updatePrices();
+                Toast.makeText(requireActivity(), "Order Placed!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.remove_order_button:
-                // Get selected items from orderList
-
-                for (int i = 0; i < this.orderList.getCount(); i++) {
-                    if (this.orderList.isItemChecked(i)) {
-                        this.currentOrder.remove(this.orderList.getItemAtPosition(i));
-                        this.adapter.remove((Pizza) this.orderList.getItemAtPosition(i));
+                for (Iterator<Pizza> iterator = this.currentOrder.getPizzasInOrder().iterator(); iterator.hasNext(); ) {
+                    Pizza pizza = iterator.next();
+                    if (this.orderList.getCheckedItemPositions().get(this.adapter.getPosition(pizza))) {
+                        iterator.remove();
+                        this.adapter.remove(pizza);
                     }
                 }
 
@@ -94,10 +108,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                 this.updatePrices();
                 break;
             case R.id.clear_order_button:
-                for (Pizza pizza : this.currentOrder.getPizzasInOrder()) {
-                    this.currentOrder.remove(pizza);
-                }
-                // this.adapter.clear();
+                this.currentOrder.getPizzasInOrder().clear();
+                this.adapter.clear();
                 this.updatePrices();
                 break;
         }
