@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import constants.Constants;
 
@@ -140,7 +141,6 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
             }
         });
         AlertDialog alert = alertDialog.create();
-        alert.setCanceledOnTouchOutside(false);
         alert.show();
     }
 
@@ -163,8 +163,6 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
             }
         });
 
-        AlertDialog alert = alertDialog.create();
-        alert.setCanceledOnTouchOutside(false);
-        alert.show();
+       alertDialog.create().show();
     }
 }

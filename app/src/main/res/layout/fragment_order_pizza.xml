@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="15dp"
+            android:paddingEnd="15dp"
             android:text="@string/small" />
 
         <RadioButton
@@ -47,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="15dp"
+            android:paddingEnd="15dp"
             android:text="@string/medium" />
 
         <RadioButton
@@ -55,5 +57,4 @@
             android:layout_height="wrap_content"
             android:text="@string/large" />
     </RadioGroup>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
