@@ -1,5 +1,7 @@
 package pizza.properties;
 
+import java.util.Locale;
+
 /**
  * Enum class listing all the toppings supported by {@code FX-RUPizzeria}.
  * @author Hasnain Ali, Carolette Saguil
@@ -41,6 +43,20 @@ public enum Topping {
         } else {
             return null;
         }
+    }
+
+    /**
+     * @return The string representation of the topping.
+     */
+    @Override
+    public String toString() {
+        String name = this.name().toLowerCase(Locale.ROOT).replace("_", " ");
+        // Replace every letter after the space with a capital letter
+        int spaceIndex = name.indexOf(" ");
+        if (spaceIndex != -1) {
+            name = name.substring(0, spaceIndex + 1) + name.substring(spaceIndex + 1, spaceIndex + 2).toUpperCase(Locale.ROOT) + name.substring(spaceIndex + 2);
+        }
+        return name.substring(0, 1).toUpperCase(Locale.ROOT) + name.substring(1);
     }
 }
 

@@ -18,7 +18,7 @@
 
     <string name="order_cancelled_notif">Order Cancelled</string>
 
-    <string name="price_label">Price:$</string>
+    <string name="price_label">Subtotal Pizza Price: $</string>
 
     <integer name="max_toppings">7</integer>
 

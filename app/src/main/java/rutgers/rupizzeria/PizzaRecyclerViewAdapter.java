@@ -19,7 +19,7 @@ public class PizzaRecyclerViewAdapter extends RecyclerView.Adapter<PizzaRecycler
     ArrayList<PizzaModel> pizzaModels;
 
 
-    public PizzaRecyclerViewAdapter(Context context, ArrayList<PizzaModel> pizzaModels, RecyclerViewInterface recyclerViewInterface){
+    public PizzaRecyclerViewAdapter(Context context, ArrayList<PizzaModel> pizzaModels, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.pizzaModels = pizzaModels;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -47,7 +47,7 @@ public class PizzaRecyclerViewAdapter extends RecyclerView.Adapter<PizzaRecycler
         return pizzaModels.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView pizzaImage;
         TextView pizzaType, pizzaCrust, pizzaToppings;

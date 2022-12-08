@@ -6,6 +6,7 @@ import pizza.Deluxe;
 import pizza.Meatzza;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Abstract class defining some basic properties of all Pizzas used in {@code FX-RUPizzeria}.
@@ -128,7 +129,7 @@ public abstract class Pizza implements Customizable {
      */
     @Override
     public String toString() {
-        return String.format("%s | Size: %s, Crust: %s, Toppings: %s Price: $ %.2f", this.getStyle(), this.size, this.crust, this.toppings, price());
+        return String.format(Locale.US, "%s | Size: %s, Crust: %s, Toppings: %s Price: $ %.2f", this.getStyle(), this.size, this.crust, this.toppings, price());
     }
 }
 

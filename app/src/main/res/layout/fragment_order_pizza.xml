@@ -15,7 +15,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/radioSizeGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +23,11 @@
         app:layout_constraintVertical_bias="0.636" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioSizeGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:checkedButton="@id/radioButton"
+        android:checkedButton="@id/radioSizeSmall"
         android:orientation="horizontal"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,25 +36,27 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioSizeSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
+            android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:text="@string/small" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioSizeMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
+            android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:text="@string/medium" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radioSizeLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text="@string/large" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

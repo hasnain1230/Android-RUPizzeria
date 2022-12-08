@@ -1,73 +1,41 @@
 package rutgers.rupizzeria;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.SyncStateContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Locale;
+import java.util.Objects;
 
-import constants.Constants;
+import orders.Order;
+import pizza.ChicagoPizza;
+import pizza.NYPizza;
+import pizza.properties.Pizza;
+import pizza.properties.Size;
+import pizza.properties.Topping;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OrderPizzaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class OrderPizzaFragment extends Fragment implements RecyclerViewInterface {
+    private RadioGroup radioGroup;
+    private Pizza pizza;
 
     ArrayList<PizzaModel> pizzaModels = new ArrayList<>();
     int[] pizzaImages = {R.drawable.chicagodefault, R.drawable.chicagodeluxe, R.drawable.chicagobbq, R.drawable.chicagomeat,
             R.drawable.nydefault, R.drawable.nydeluxe, R.drawable.nybbq, R.drawable.nymeatzza};
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public OrderPizzaFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OrderPizzaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrderPizzaFragment newInstance(String param1, String param2) {
-        OrderPizzaFragment fragment = new OrderPizzaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -77,9 +45,10 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
         View view = inflater.inflate(R.layout.fragment_order_pizza, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.pizzaRecyclerView);
         setUpPizzaModels();
-        PizzaRecyclerViewAdapter adapter = new PizzaRecyclerViewAdapter(view.getContext(), pizzaModels, this);
-        recyclerView.setAdapter(adapter);
+        PizzaRecyclerViewAdapter pizzaRecyclerViewAdapter = new PizzaRecyclerViewAdapter(view.getContext(), pizzaModels, this);
+        recyclerView.setAdapter(pizzaRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        this.radioGroup = view.findViewById(R.id.radioSizeGroup);
 
         return view;
     }
@@ -96,73 +65,108 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
 
     @Override
     public void onItemClick1(int position, View view) {
-        showAlertDialogToppings(view);
+        createPizza(position);
+        showAlertDialogToppings(position, view);
     }
 
+    @Override
     public void onItemClick2(int position, View view) {
-        showAlertDialogPrice(view);
+        createPizza(position);
+        showAlertDialogPrice(position, view);
     }
 
-    private void showAlertDialogToppings(View view) {
+    private void createPizza(int position) {
+        this.radioGroup = requireView().findViewById(R.id.radioSizeGroup);
+        int selectedId = this.radioGroup.getCheckedRadioButtonId();
+        RadioButton radioButtonSize = requireView().findViewById(selectedId);
+
+        switch (position) {
+            case 0:
+                this.pizza = new ChicagoPizza().createBuildYourOwn();
+                this.pizza.setSize(Size.valueOf(radioButtonSize.getText().toString().toUpperCase()));
+                break;
+            case 1:
+                this.pizza = new ChicagoPizza().createDeluxe();
+                this.pizza.setSize(Size.valueOf(radioButtonSize.getText().toString().toUpperCase()));
+                break;
+            case 2:
+                this.pizza = new ChicagoPizza().createBBQChicken();
+                this.pizza.setSize(Size.valueOf(radioButtonSize.getText().toString().toUpperCase()));
+                break;
+            case 3:
+                this.pizza = new ChicagoPizza().createMeatzza();
+                this.pizza.setSize(Size.valueOf(radioButtonSize.getText().toString().toUpperCase()));
+                break;
+            case 4:
+                this.pizza = new NYPizza().createBuildYourOwn();
+                this.pizza.setSize(Size.valueOf(radioButtonSize.getText().toString().toUpperCase()));
+                break;
+            case 5:
+                this.pizza = new NYPizza().createDeluxe();
+                this.pizza.setSize(Size.valueOf(radioButtonSize.getText().toString().toUpperCase()));
+                break;
+            case 6:
+                this.pizza = new NYPizza().createBBQChicken();
+                this.pizza.setSize(Size.valueOf(radioButtonSize.getText().toString().toUpperCase()));
+                break;
+            case 7:
+                this.pizza = new NYPizza().createMeatzza();
+                this.pizza.setSize(Size.valueOf(radioButtonSize.getText().toString().toUpperCase()));
+                break;
+        }
+    }
+
+    private void showAlertDialogToppings(int position, View view) {
         ArrayList<String> selectedToppings = new ArrayList<>();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
         alertDialog.setTitle(R.string.select_topping_title);
-        String[] toppings = getActivity().getResources().getStringArray(R.array.toppings);
+        String[] toppings = requireActivity().getResources().getStringArray(R.array.toppings);
         boolean[] checkedItems = new boolean[13];
-        alertDialog.setMultiChoiceItems(toppings, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                if (b) {
-                    if (selectedToppings.size() == Constants.MAXIMUM_TOPPINGS) { //tried this with the R.integer.max_toppings and it didn't work but it works with this
-                        Toast.makeText(view.getContext(), R.string.max_topping_warning, (Toast.LENGTH_SHORT)).show();
-                        checkedItems[i] = false;
-                        ((AlertDialog) dialogInterface).getListView().setItemChecked(i, false);
-                    } else {
-                        selectedToppings.add(toppings[i]);
-                        //TODO: possibly make toast updating price but it was lowkey annoying me so decide if you want to
-                    }
+
+        alertDialog.setMultiChoiceItems(toppings, checkedItems, (dialogInterface, i, selected) -> {
+            if (selected) {
+                if (selectedToppings.size() == getResources().getInteger(R.integer.max_toppings)) {
+                    Toast.makeText(view.getContext(), R.string.max_topping_warning, (Toast.LENGTH_SHORT)).show();
+                    checkedItems[i] = false;
+                    ((AlertDialog) dialogInterface).getListView().setItemChecked(i, false);
                 } else {
-                    selectedToppings.remove(toppings[i]);
+                    selectedToppings.add(toppings[i]);
+                    Topping toppingToAdd = Topping.returnToppingEnumFromString(toppings[i]);
+                    this.pizza.add(toppingToAdd);
                 }
+            } else {
+                selectedToppings.remove(toppings[i]);
+                this.pizza.remove(Topping.returnToppingEnumFromString(toppings[i]));
             }
+
+            String formattedPrice = String.format(Locale.US, "Pizza Subtotal: $%.2f", this.pizza.price());
+            Toast.makeText(view.getContext(), formattedPrice, Toast.LENGTH_SHORT).show();
         });
 
-        alertDialog.setPositiveButton(R.string.continue_option, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                showAlertDialogPrice(view);
-            }
-        });
+        alertDialog.setPositiveButton(R.string.continue_option, (dialogInterface, i) -> showAlertDialogPrice(position, view));
 
-        alertDialog.setNegativeButton(R.string.cancel_option, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(view.getContext(), R.string.order_cancelled_notif, (Toast.LENGTH_SHORT)).show();
-            }
-        });
+        alertDialog.setNegativeButton(R.string.cancel_option, (dialogInterface, i) -> Toast.makeText(view.getContext(), R.string.order_cancelled_notif, (Toast.LENGTH_SHORT)).show());
+
+        String formattedPrice = String.format(Locale.US, "Current Pizza Subtotal: $%.2f", this.pizza.price());
+        Toast.makeText(view.getContext(), formattedPrice, Toast.LENGTH_SHORT).show();
         AlertDialog alert = alertDialog.create();
         alert.show();
     }
 
-    private void showAlertDialogPrice(View view) {
+    private void showAlertDialogPrice(int position, View view) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
         alertDialog.setTitle(R.string.confirm_order_title);
-        alertDialog.setMessage(R.string.price_label);
+        alertDialog.setMessage(String.format(Locale.US, "%s %.2f", getResources().getString(R.string.price_label), this.pizza.price()));
 
-        alertDialog.setPositiveButton(R.string.place_order_option, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(view.getContext(), R.string.order_placed_notif, (Toast.LENGTH_SHORT)).show();
-            }
+        alertDialog.setPositiveButton(R.string.place_order_option, (dialogInterface, i) -> {
+            Toast.makeText(view.getContext(), R.string.order_placed_notif, (Toast.LENGTH_SHORT)).show();
+            Order order = ((MainActivity) requireActivity()).getCurrentOrder();
+            order.add(this.pizza);
         });
 
-        alertDialog.setNegativeButton(R.string.cancel_option, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(view.getContext(), R.string.order_cancelled_notif, (Toast.LENGTH_SHORT)).show();
-            }
-        });
+        alertDialog.setNegativeButton(R.string.cancel_option, (dialogInterface, i) -> Toast.makeText(view.getContext(), R.string.order_cancelled_notif, (Toast.LENGTH_SHORT)).show());
 
        alertDialog.create().show();
     }
+
 }

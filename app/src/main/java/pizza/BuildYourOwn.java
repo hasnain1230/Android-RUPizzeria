@@ -27,7 +27,6 @@ public class BuildYourOwn extends Pizza {
     @Override
     public double price() {
         ArrayList<Topping> toppings = getToppings();
-
         if (super.getSize() == Size.SMALL) {
             return Constants.SMALL_BUILD_YOUR_OWN + (toppings.size() * Constants.ADDITIONAL_TOPPING_COST);
         } else if (super.getSize() == Size.MEDIUM) {
