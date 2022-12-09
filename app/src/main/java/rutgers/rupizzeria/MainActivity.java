@@ -18,7 +18,7 @@ import rutgers.rupizzeria.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static Order currentOrder;
+    private Order currentOrder;
     private static StoreOrders storeOrders;
 
     @SuppressLint("NonConstantResourceId")
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         rutgers.rupizzeria.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new OrderPizzaFragment());
-        currentOrder = new Order();
+        this.currentOrder = new Order();
         storeOrders = new StoreOrders();
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -48,10 +48,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Order getCurrentOrder() {
-        return currentOrder;
+        return this.currentOrder;
     }
-    public StoreOrders getStoreOrders() {
+    public static StoreOrders getStoreOrders() {
         return storeOrders;
+    }
+    public static void setStoreOrders(StoreOrders storeOrders) {
+        MainActivity.storeOrders = storeOrders;
     }
     public void setNewOrder() {
         currentOrder = new Order();

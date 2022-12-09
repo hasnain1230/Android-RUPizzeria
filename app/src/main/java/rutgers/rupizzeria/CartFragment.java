@@ -49,7 +49,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.currentOrder = ((MainActivity) requireActivity()).getCurrentOrder();
-        this.storeOrders = ((MainActivity) requireActivity()).getStoreOrders();
+        this.storeOrders = MainActivity.getStoreOrders();
 
         if (this.currentOrder == null) {
             return;
@@ -88,22 +88,28 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(requireActivity(), "Empty Order!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Order placedOrder = new Order(this.currentOrder);
-                this.storeOrders.add(placedOrder);
+                this.storeOrders.add(this.currentOrder);
                 ((MainActivity) requireActivity()).setNewOrder();
+                this.currentOrder = ((MainActivity) requireActivity()).getCurrentOrder();
                 this.adapter.clear();
                 this.updatePrices();
-                Toast.makeText(requireActivity(), "Order Placed!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.remove_order_button:
-                for (Iterator<Pizza> iterator = this.currentOrder.getPizzasInOrder().iterator(); iterator.hasNext(); ) {
-                    Pizza pizza = iterator.next();
-                    if (this.orderList.getCheckedItemPositions().get(this.adapter.getPosition(pizza))) {
-                        iterator.remove();
-                        this.adapter.remove(pizza);
+                SparseBooleanArray checked = this.orderList.getCheckedItemPositions();
+                List<Pizza> pizzasToRemove = new ArrayList<>();
+
+                for (int i = 0; i < checked.size(); i++) {
+                    if (checked.valueAt(i)) {
+                        pizzasToRemove.add(this.adapter.getItem(checked.keyAt(i)));
                     }
                 }
 
+                for (Pizza pizza : pizzasToRemove) {
+                    this.currentOrder.remove(pizza);
+                    this.adapter.remove(pizza);
+                }
+
+                this.adapter.notifyDataSetChanged();
                 Toast.makeText(getContext(), "Removed Selected Items", Toast.LENGTH_SHORT).show();
                 this.updatePrices();
                 break;
