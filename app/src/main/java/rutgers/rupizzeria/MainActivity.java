@@ -97,10 +97,10 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().popBackStack();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure you want to exit?");
+            builder.setMessage(getResources().getString(R.string.warning_exit));
             builder.setCancelable(true);
-            builder.setPositiveButton("Yes", (dialog, which) -> finish());
-            builder.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+            builder.setPositiveButton(getResources().getString(R.string.warning_exit_yes), (dialog, which) -> finish());
+            builder.setNegativeButton(getResources().getString(R.string.warning_exit_no), (dialog, which) -> dialog.cancel());
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }

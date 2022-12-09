@@ -57,11 +57,11 @@
 
     <string name="default_order_number">0</string>
 
-    <string name="order_total">Order Total: $</string>
+    <string name="order_total">Order Total: </string>
 
-    <string name="subtotal">Subtotal: $</string>
+    <string name="subtotal">Subtotal: </string>
 
-    <string name="sales_tax">Sales Tax: $</string>
+    <string name="sales_tax">Sales Tax: </string>
 
     <string-array name="pizza_types">
         <item>Chicago Build Your Own</item>
@@ -123,5 +123,13 @@
 
     <integer name="position_chicago_buildyourown">0</integer>
     <integer name="position_ny_buildyourown">4</integer>
+    
+    <string name="warning_exit">Are you sure you want to exit?</string>
+    <string name="warning_exit_yes">Yes</string>
+    <string name="warning_exit_no">No</string>
+    
+    <string name="no_orders_to_remove">There are no orders to remove!</string>
+    
+    <string name="order_removed">Order %d Removed</string>
 
 </resources>

@@ -173,8 +173,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
             subtotal += pizza.price();
         }
 
-        this.subtotalTextView.setText(String.format(Locale.ROOT, getResources().getString(R.string.money_format_string), subtotal));
-        this.taxTextView.setText(String.format(Locale.ROOT, getResources().getString(R.string.money_format_string), subtotal * (6.625 / 100)));
-        this.totalTextView.setText(String.format(Locale.ROOT, getResources().getString(R.string.money_format_string), subtotal * (1 + (6.625 / 100))));
+        this.subtotalTextView.setText(String.format(Locale.US, getResources().getString(R.string.money_format_string), subtotal));
+        this.taxTextView.setText(String.format(Locale.US, getResources().getString(R.string.money_format_string), subtotal * (6.625 / 100)));
+        this.totalTextView.setText(String.format(Locale.US, getResources().getString(R.string.money_format_string), subtotal * (1 + (6.625 / 100))));
     }
 }
