@@ -194,7 +194,7 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
                 this.pizza.remove(Topping.returnToppingEnumFromString(toppings[i]));
             }
 
-            String formattedPrice = String.format(Locale.US, "Pizza Subtotal: $%.2f", this.pizza.price());
+            String formattedPrice = String.format(Locale.US, getResources().getString(R.string.pizza_subtotal_string), this.pizza.price());
             Toast.makeText(view.getContext(), formattedPrice, Toast.LENGTH_SHORT).show();
         });
 
@@ -202,7 +202,7 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
 
         alertDialog.setNegativeButton(getResources().getString(R.string.cancel_option), (dialogInterface, i) -> Toast.makeText(view.getContext(), getResources().getString(R.string.order_cancelled_notif), (Toast.LENGTH_SHORT)).show());
 
-        String formattedPrice = String.format(Locale.US, "Current Pizza Subtotal: $%.2f", this.pizza.price());
+        String formattedPrice = String.format(Locale.US, getResources().getString(R.string.current_pizza_subtotal), this.pizza.price());
         Toast.makeText(view.getContext(), formattedPrice, Toast.LENGTH_SHORT).show();
         AlertDialog alert = alertDialog.create();
         alert.show();
@@ -216,7 +216,7 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
     private void showAlertDialogPrice(int position, View view) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
         alertDialog.setTitle(getResources().getString(R.string.confirm_order_title));
-        alertDialog.setMessage(String.format(Locale.US, "%s %.2f", getResources().getString(R.string.price_label), this.pizza.price()));
+        alertDialog.setMessage(String.format(Locale.US, getResources().getString(R.string.subtotal_pizza_price_formatter), getResources().getString(R.string.price_label), this.pizza.price()));
 
         alertDialog.setPositiveButton(getResources().getString(R.string.place_order_option), (dialogInterface, i) -> {
             Toast.makeText(view.getContext(), getResources().getString(R.string.order_placed_notif), (Toast.LENGTH_SHORT)).show();

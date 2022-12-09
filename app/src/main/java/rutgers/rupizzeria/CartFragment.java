@@ -1,6 +1,5 @@
 package rutgers.rupizzeria;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,12 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import orders.Order;
 import orders.StoreOrders;
@@ -29,22 +24,59 @@ import pizza.properties.Pizza;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
+ * Use the {@link CartFragment} factory method to
  * create an instance of this fragment.
  */
 public class CartFragment extends Fragment implements View.OnClickListener {
+    /**
+     * The StoreOrders object that contains all the orders.
+     */
     private StoreOrders storeOrders;
+    /**
+     * The current order object containing the pizzas.
+     */
     private Order currentOrder;
+    /**
+     * The TextView that displays the order number
+     */
     private TextView orderNumber;
+    /**
+     * The TextView that displays the subtotal price of the order
+     */
     private TextView subtotalTextView;
+    /**
+     * The TextView that displays the tax price of the order
+     */
     private TextView taxTextView;
+    /**
+     * The TextView that displays the total price of the order
+     */
     private TextView totalTextView;
+    /**
+     * The ListView that displays the pizzas in the order
+     */
     private ListView orderList;
+    /**
+     * The ArrayAdapter that displays the pizzas in the order
+     */
     private ArrayAdapter<Pizza> adapter;
+    /**
+     * The place order button
+     */
     private Button placeOrderButton;
+    /**
+     * The cancel order button
+     */
     private Button removeOrderButton;
+    /**
+     * The clear all pizzas button
+     */
     private Button clearOrderButton;
 
+    /**
+     * This method will initialize some basic non-GUI states of the Cart Fragment.
+     * @param savedInstanceState The saved instance state of the fragment that we want to create.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +90,13 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         this.adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_activated_1, new ArrayList<>(this.currentOrder.getPizzasInOrder()));
     }
 
+    /**
+     * This method will initialize the GUI components of the Cart Fragment.
+     * @param inflater The LayoutInflater that will inflate the layout with the GUI components.
+     * @param container The ViewGroup that will contain the layout.
+     * @param savedInstanceState The saved instance state of the fragment that we want to create.
+     * @return The View that will be displayed.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,12 +119,16 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    /**
+     * This method will update the prices of the order based on the corresponding GUI button that is pressed.
+     * @param view The View that was clicked.
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.place_order_button:
                 if (this.currentOrder.getPizzasInOrder().isEmpty()) {
-                    Toast.makeText(requireActivity(), "Empty Order!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), getResources().getString(R.string.empty_order), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 this.storeOrders.add(this.currentOrder);
@@ -110,7 +153,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                 }
 
                 this.adapter.notifyDataSetChanged();
-                Toast.makeText(getContext(), "Removed Selected Items", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.remove_selected_items), Toast.LENGTH_SHORT).show();
                 this.updatePrices();
                 break;
             case R.id.clear_order_button:
@@ -121,14 +164,17 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Updates the subtotal, tax, and total prices of the order on the GUI.
+     */
     private void updatePrices() {
         double subtotal = 0.0;
         for (Pizza pizza : this.currentOrder.getPizzasInOrder()) {
             subtotal += pizza.price();
         }
 
-        this.subtotalTextView.setText(String.format(Locale.ROOT, "$%.2f", subtotal));
-        this.taxTextView.setText(String.format(Locale.ROOT, "$%.2f", subtotal * (6.625 / 100)));
-        this.totalTextView.setText(String.format(Locale.ROOT, "$%.2f", subtotal * (1 + (6.625 / 100))));
+        this.subtotalTextView.setText(String.format(Locale.US, getResources().getString(R.string.money_format_string), subtotal));
+        this.taxTextView.setText(String.format(Locale.US, getResources().getString(R.string.money_format_string), subtotal * (6.625 / 100)));
+        this.totalTextView.setText(String.format(Locale.US, getResources().getString(R.string.money_format_string), subtotal * (1 + (6.625 / 100))));
     }
 }
