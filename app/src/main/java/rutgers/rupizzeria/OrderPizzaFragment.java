@@ -72,7 +72,6 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_pizza, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.pizzaRecyclerView);
         setUpPizzaModels();
@@ -80,7 +79,6 @@ public class OrderPizzaFragment extends Fragment implements RecyclerViewInterfac
         recyclerView.setAdapter(pizzaRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         this.radioGroup = view.findViewById(R.id.radioSizeGroup);
-
         return view;
     }
 

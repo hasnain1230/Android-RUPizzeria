@@ -58,7 +58,7 @@ public class PizzaRecyclerViewAdapter extends RecyclerView.Adapter<PizzaRecycler
     }
 
     /**
-     * Assign values to views we create in the recycler view row layout file based on position of recycler view.
+     * Assign values to each view created in the recycler view row layout file when item is visible on screen.
      * @param holder View Holder that will be updated.
      * @param position Position of item in recycler view.
      */
@@ -80,6 +80,7 @@ public class PizzaRecyclerViewAdapter extends RecyclerView.Adapter<PizzaRecycler
 
     /**
      * This class works with the adapter to update the screen for individual items.
+     * Gets the views from the row layout file, similar to the onCreate() method.
      * @author Hasnain Ali, Carolette Saguil
      */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -120,6 +121,7 @@ public class PizzaRecyclerViewAdapter extends RecyclerView.Adapter<PizzaRecycler
             itemView.setOnClickListener(new View.OnClickListener() {
                 /**
                  * Sets click methods for certain positions in recycler view.
+                 * Clicking an item opens up an alert dialog.
                  * @param view View that is pressed.
                  */
                 @Override
