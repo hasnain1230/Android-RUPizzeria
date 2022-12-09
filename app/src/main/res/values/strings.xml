@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Android-RUPizzeria</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
     <string name="select_topping_title">Select Toppings</string>
 
@@ -21,6 +20,8 @@
     <string name="price_label">Subtotal Pizza Price: $</string>
 
     <integer name="max_toppings">7</integer>
+
+    <integer name = "total_toppings">13</integer>
 
     <string name="order_pizza_nav">Order Pizza</string>
 
