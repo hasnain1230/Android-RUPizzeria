@@ -159,7 +159,7 @@ public class StoreOrdersFragment extends Fragment implements AdapterView.OnItemS
                 this.pizzaArrayAdapter.addAll(Objects.requireNonNull(this.storeOrders.getOrders().get((int) this.orderSpinner.getSelectedItem())).getPizzasInOrder());
             }
             this.pizzaArrayAdapter.notifyDataSetChanged();
-            this.totalTextView.setText("$0.00");
+            this.totalTextView.setText(getResources().getString(R.string.nil_price));
 
             Toast.makeText(requireActivity(), String.format(Locale.ROOT, getResources().getString(R.string.order_removed), orderNumber), Toast.LENGTH_SHORT).show();
         }

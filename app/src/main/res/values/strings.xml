@@ -132,4 +132,8 @@
     
     <string name="order_removed">Order %d Removed</string>
 
+    <string name="no_order_selected" >No Order Selected!</string>
+
+    <string name="nil_price">$0.00</string>
+
 </resources>

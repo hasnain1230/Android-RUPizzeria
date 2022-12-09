@@ -138,6 +138,11 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                 this.updatePrices();
                 break;
             case R.id.remove_order_button:
+                if (this.currentOrder.getPizzasInOrder().isEmpty()) {
+                    Toast.makeText(requireActivity(), getResources().getString(R.string.empty_order), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 SparseBooleanArray checked = this.orderList.getCheckedItemPositions();
                 List<Pizza> pizzasToRemove = new ArrayList<>();
 
@@ -147,12 +152,18 @@ public class CartFragment extends Fragment implements View.OnClickListener {
                     }
                 }
 
+                if (pizzasToRemove.isEmpty()) {
+                    Toast.makeText(requireActivity(), getResources().getString(R.string.no_order_selected), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 for (Pizza pizza : pizzasToRemove) {
                     this.currentOrder.remove(pizza);
                     this.adapter.remove(pizza);
                 }
 
                 this.adapter.notifyDataSetChanged();
+                this.orderList.clearChoices();
                 Toast.makeText(getContext(), getResources().getString(R.string.remove_selected_items), Toast.LENGTH_SHORT).show();
                 this.updatePrices();
                 break;
