@@ -111,4 +111,17 @@
         <item>Bacon</item>
         <item>Pineapple</item>
     </string-array>
+
+    <string name="empty_order">Empty Order!</string>
+    <string name="remove_selected_items">Removed Selected Items</string>
+
+    <string name="money_format_string">$%.2f</string>
+
+    <string name="pizza_subtotal_string">Pizza Subtotal: $%.2f</string>
+    <string name="current_pizza_subtotal">Current Pizza Subtotal: $%.2f</string>
+    <string name="subtotal_pizza_price_formatter">%s %.2f</string>
+
+    <integer name="position_chicago_buildyourown">0</integer>
+    <integer name="position_ny_buildyourown">4</integer>
+
 </resources>

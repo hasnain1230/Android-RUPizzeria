@@ -2,7 +2,6 @@ package pizza;
 
 import pizza.properties.Crust;
 import pizza.properties.Pizza;
-import pizza.properties.Size;
 
 /**
  * Implements a Chicago Style Pizza. Implements from Pizza Factory which allows for either Deluxe, Meatzza, BBQChicken, or BuildYourOwnPizza

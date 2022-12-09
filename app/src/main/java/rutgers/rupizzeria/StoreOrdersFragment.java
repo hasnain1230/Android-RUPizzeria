@@ -66,6 +66,7 @@ public class StoreOrdersFragment extends Fragment implements AdapterView.OnItemS
         int orderNumber = (int) adapterView.getItemAtPosition(i);
         HashSet<Pizza> orders = Objects.requireNonNull(this.storeOrders.getOrders().get(orderNumber)).getPizzasInOrder();
         this.pizzaArrayAdapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, new ArrayList<>(orders));
+        this.pizzaArrayAdapter.notifyDataSetChanged();
         this.orderList.setAdapter(this.pizzaArrayAdapter);
         this.updatePrice();
     }
@@ -89,6 +90,12 @@ public class StoreOrdersFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.store_order_cancel_order_button) {
+            // Check if there are any orders
+            if (this.storeOrders.getOrders().size() == 0) {
+                Toast.makeText(requireActivity(), "There are no orders to remove!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             int orderNumber = (int) this.orderSpinner.getSelectedItem();
             Order orderToRemove = this.storeOrders.getOrders().get(orderNumber);
 
@@ -96,6 +103,11 @@ public class StoreOrdersFragment extends Fragment implements AdapterView.OnItemS
             this.orderAdapter.remove(orderNumber);
             this.orderAdapter.notifyDataSetChanged();
             this.pizzaArrayAdapter.clear();
+            // Update Pizza Array Adapter with next order in list
+            if (this.storeOrders.getOrders().size() > 0) {
+                this.orderSpinner.setSelection(0);
+                this.pizzaArrayAdapter.addAll(Objects.requireNonNull(this.storeOrders.getOrders().get((int) this.orderSpinner.getSelectedItem())).getPizzasInOrder());
+            }
             this.pizzaArrayAdapter.notifyDataSetChanged();
             this.totalTextView.setText("$0.00");
 

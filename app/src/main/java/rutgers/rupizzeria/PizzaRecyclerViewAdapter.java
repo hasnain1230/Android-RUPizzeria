@@ -17,8 +17,17 @@ import java.util.ArrayList;
  * @author Hasnain Ali, Carolette Saguil
  */
 public class PizzaRecyclerViewAdapter extends RecyclerView.Adapter<PizzaRecyclerViewAdapter.MyViewHolder> {
+    /**
+     * The interface to implement for the RecyclerView
+     */
     private final RecyclerViewInterface recyclerViewInterface;
+    /**
+     * The context of the activity
+     */
     Context context;
+    /**
+     * The Pizza Models for the RecyclerView
+     */
     ArrayList<PizzaModel> pizzaModels;
 
     /**
@@ -117,7 +126,8 @@ public class PizzaRecyclerViewAdapter extends RecyclerView.Adapter<PizzaRecycler
                 public void onClick(View view) {
                     if (recyclerViewInterface != null) {
                         int pos = getAdapterPosition();
-                        if(pos == 0 || pos == 4) {
+
+                        if(pos == view.getResources().getInteger(R.integer.position_chicago_buildyourown) || pos == view.getResources().getInteger(R.integer.position_ny_buildyourown)) {
                             recyclerViewInterface.onItemClickCustomize(pos, itemView);
                         } else if (pos != RecyclerView.NO_POSITION) {
                             recyclerViewInterface.onItemClickBasic(pos, itemView);
